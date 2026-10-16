@@ -1,26 +1,155 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Фоны */
+  --color-space: #050505;
+  --color-space-soft: #0F0D0A;
+  --color-space-line: #2A231A;
+
+  /* Основной акцент — золото/янтарь (аккреционный диск) */
+  --color-electric: #FFA94D;
+  --color-electric-hover: #FFBD6E;
+  --color-electric-dim: #A86B2A;
+
+  /* Второй акцент — тёплый оранж */
+  --color-emerald: #FF6B35;
+  --color-emerald-hover: #FF8855;
+  --color-emerald-dim: #A83F1A;
+
+  /* Текст */
+  --color-ink: #F5F0E8;
+  --color-ink-muted: #A89C8A;
+  --color-ink-dim: #6A6055;
+
+  /* Шрифты */
+  --font-sans: var(--font-sans, system-ui, sans-serif);
+  --font-display: var(--font-display, system-ui, sans-serif);
+
+  /* Свечения */
+  --shadow-glow: 0 0 40px rgba(255, 169, 77, 0.45);
+  --shadow-glow-emerald: 0 0 40px rgba(255, 107, 53, 0.45);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: #0B0620;
+  color: #F0F2FF;
+  -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html { scroll-behavior: smooth; }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #0B0620; }
+::-webkit-scrollbar-thumb { background: #251A4A; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #7C4DFF; }
+/* ═══════════════════════════════════════════
+   Анимация "Энергоядро" — keyframes
+   ═══════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════
+   Анимация "Энергоядро"
+   ═══════════════════════════════════════════ */
+
+@keyframes particle-fly {
+  0% {
+    transform: translate(var(--start-x, 0), var(--start-y, 0)) scale(0.4);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+}
+/* ═══════════════════════════════════════════
+   Анимация взрыва карточек
+   ═══════════════════════════════════════════ */
+
+@keyframes card-explode {
+  0% {
+    opacity: 0;
+    transform: scale(1.4) translateY(30px);
+    filter: blur(12px) brightness(2);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(3px) brightness(1.4);
+  }
+  70% {
+    transform: scale(0.97) translateY(-4px);
+    filter: blur(0) brightness(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0) brightness(1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes card-flash {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255,169,77,0.9), 0 0 60px 20px rgba(255,169,77,0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255,169,77,0), 0 0 0 0 rgba(255,169,77,0);
+  }
+}
+
+.animate-card-explode {
+  animation: card-explode 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-card-flash {
+  animation: card-flash 0.9s ease-out both;
+}
+/* ─── Стили модалки ─── */
+
+.input-base {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: #050505;
+  border: 1px solid #2A231A;
+  color: #F5F0E8;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-base::placeholder {
+  color: #6A6055;
+}
+
+.input-base:focus {
+  border-color: #FFA94D;
+}
+
+/* Убираем стрелки у input[type=number] */
+.input-base::-webkit-outer-spin-button,
+.input-base::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input-base[type="number"] {
+  -moz-appearance: textfield;
+}
+
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
