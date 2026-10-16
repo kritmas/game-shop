@@ -158,7 +158,7 @@ export default function Footer() {
         {/* Нижняя полоса */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-space-line">
           <p className="text-ink-dim text-xs text-center md:text-left">
-            © {new Date().getFullYear()} GameShop. Все права защищены.
+            © 2026 GameShop. Все права защищены.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-xs text-ink-dim">
             <Link href="/offer" className="hover:text-electric transition-colors">
